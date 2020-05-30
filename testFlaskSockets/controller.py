@@ -6,6 +6,7 @@ import adafruit_displayio_ssd1306
 
 
 class DisplayController:
+    #lib from https://github.com/adafruit/Adafruit_CircuitPython_DisplayIO_SSD1306
     def __init__(self, address):
         if address is None:
             raise Exception("None address")
