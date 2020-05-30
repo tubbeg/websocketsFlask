@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello from Flask</title>
+</head>
+<body>
+{% if name %}
+  <h1>Hello {{ name }}!</h1>
+{% else %}
+  <h1>Text to LCD!</h1>
+{% endif %}
+
+<div class="row">
+    <div class="col-2">Message</div>
+    <div class="col-4"><input type="text" id="messageInput" /></div>
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="col-6">
+        <input type="button" id="sendButton" value="Send Message" />
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+        integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+$('document').ready(() => {
+    document.getElementById("sendButton").disabled = true;
+    var socket = io();
+    socket.on('connect', () => {
+        document.getElementById("sendButton").disabled = false;
+        function sendMessage(){
+            let myText = document.getElementById('messageInput').value;
+            document.getElementById('messageInput').value = "";
+            socket.emit('messageEvent', {message: myText});
+        }
+        document.getElementById("sendButton").addEventListener("click", sendMessage);
+    });
+});
+</script>
+
+
+</body>
+</html>
