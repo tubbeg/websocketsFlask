@@ -5,11 +5,7 @@
     <title>Hello from Flask</title>
 </head>
 <body>
-{% if name %}
-  <h1>Hello {{ name }}!</h1>
-{% else %}
-  <h1>Text to LCD!</h1>
-{% endif %}
+<h1>Text to LCD!</h1>
 
 <div class="row">
     <div class="col-2">Message</div>
@@ -19,6 +15,11 @@
 <div class="row">
     <div class="col-6">
         <input type="button" id="sendButton" value="Send Message" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <ul id ="myList"></ul>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.js"
@@ -33,10 +34,20 @@ $('document').ready(() => {
     var socket = io();
     socket.on('connect', () => {
         document.getElementById("sendButton").disabled = false;
+        function updateList(myText){
+          let ul = document.getElementById("myList");
+          let li = document.createElement("li");
+          li.appendChild(document.createTextNode(myText));
+          ul.appendChild(li);
+        }
         function sendMessage(){
             let myText = document.getElementById('messageInput').value;
+            if (myText == "")
+                return;
+            updateList(myText);
             document.getElementById('messageInput').value = "";
             socket.emit('messageEvent', {message: myText});
+            console.log("sent: " + myText);
         }
         document.getElementById("sendButton").addEventListener("click", sendMessage);
     });
