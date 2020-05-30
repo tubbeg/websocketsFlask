@@ -10,6 +10,7 @@ socketio = SocketIO(app)
 def hello(name=None):
     return render_template('index.html', name=name)
 
+
 @socketio.on('messageEvent')
 def handle_my_custom_event(json):
     print('received json: ' + str(json))
