@@ -16,8 +16,11 @@ def hello(name=None):
 def handle_my_custom_event(json):
     print('received json: ' + str(json))
     message_info = json.loads(json)
+    display.clear_display()
+    display.draw_background()
+    display.draw_rectangle()
     display.write_text(message_info["message"])
-
+    display.update_display()
 
 if __name__ == '__main__':
     socketio.run(app)
