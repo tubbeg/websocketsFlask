@@ -13,9 +13,9 @@ def hello(name=None):
     return render_template('index.html', name=name)
 
 @socketio.on('messageEvent')
-def handle_my_custom_event(json):
-    print('received json: ' + str(json))
-    message_info = json.loads(json)
+def handle_my_custom_event(json_data):
+    print('received json: ' + str(json_data))
+    message_info = json_data
     display.clear_display()
     display.draw_background()
     display.draw_rectangle()

@@ -48,7 +48,7 @@ def main():
     display.clear_display()
     display.draw_background()
     display.draw_rectangle()
-    display.write_text("fuck")
+    display.write_text("hello display")
     display.update_display()
 
 
